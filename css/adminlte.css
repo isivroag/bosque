@@ -4569,10 +4569,13 @@ input[type="button"].btn-block {
     border-radius: 0.25rem;
 }
 
+
+/* navegacion*/
+
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
     color: #ffffff;
-    background-color: #007bff;
+    background-color: #708faf;
 }
 
 .nav-fill .nav-item {
