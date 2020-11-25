@@ -1,0 +1,13 @@
+rfc
+nacionalidad
+nombre
+correo
+calle
+col
+cp
+cd
+edo
+tel
+cel
+trabajo
+edociv
