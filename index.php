@@ -52,7 +52,7 @@ if (isset($_SESSION["s_usuario"])) {
 <body class="hold-transition login-page" style="background:white">
   <div class="login-box">
     <div class="login-logo">
-      <img src="img/logocdc.png" alt="">
+      <img src="img/logob.png" alt="">
 
     </div>
     <!-- /.login-logo -->

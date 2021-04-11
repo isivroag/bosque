@@ -4,7 +4,7 @@
         function connect(){
         
             define('servidor','localhost');
-            define('bd_nombre','bosquede_SISTEMAS');
+            define('bd_nombre','gf');
             define('usuario','root');
             define('password','tecniem');
 

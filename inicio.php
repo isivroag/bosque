@@ -5,179 +5,210 @@ include_once "templates/barra.php";
 include_once "templates/navegacion.php";
 
 
-
-include_once 'bd/conexion.php';
-$objeto = new conn();
-$conexion = $objeto->connect();
-
-$consulta = "SELECT * FROM vcntacuenta WHERE ejercicio='" . date('Y') . "' AND mes='" . date('m') . "'";
-$resultado = $conexion->prepare($consulta);
-$resultado->execute();
-$data = $resultado->fetchAll(PDO::FETCH_ASSOC);
-
-
 ?>
 <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
-  <section class="content-header bg-gradient-green">
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1>ERP CIUDAD CENTRAL</h1>
-        </div>
 
-      </div>
-    </div><!-- /.container-fluid -->
-  </section>
 
   <!-- Main content -->
+  <section class="content ">
+    <div class="container-fluid ">
+      <div class="card">
+        <div class="card-header bg-gradient-green">
+          <h3>INMOBILIARIA BOSQUE DE LAS ANIMAS</h3>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
   <section class="content" style="margin-top:5px">
     <div class="container-fluid">
-      <!--CARDS ENCABEZADO -->
-
-      <!--
-      <div class="row">
-        <div class="col-lg-3 col-6">
-         
-          <div class="small-box bg-info">
-            <div class="inner">
-              <h3>150</h3>
-
-              <p>New Orders</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-bag"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-       
-        <div class="col-lg-3 col-6">
-         
-          <div class="small-box bg-success">
-            <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-              <p>Bounce Rate</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-       
-        <div class="col-lg-3 col-6">
-       
-          <div class="small-box bg-warning">
-            <div class="inner">
-              <h3>44</h3>
-
-              <p>User Registrations</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-person-add"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-       
-        <div class="col-lg-3 col-6">
-     
-          <div class="small-box bg-danger">
-            <div class="inner">
-              <h3>65</h3>
-
-              <p>Unique Visitors</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-pie-graph"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-       
-      </div>
--->
-      <div class="row ">
-        <!-- Left col -->
-        <div class="col-lg-12 col-12">
-          <!-- Custom tabs (Charts with tabs)-->
+      <div class="row justify-content-center mt-5">
+        <div class="col-sm-8">
           <div class="card">
-            <div class="card-header bg-gradient-green boder-0">
-              <h3 class="card-title ">
-                <i class="fas fa-money-check-alt mr-1"></i>
-                COBRANZA DEL MES
-              </h3>
-              <div class="card-tools">
-                <button type="button" class="btn bg-blue text-light btn-sm daterange" data-toggle="tooltip" title="Date range">
-                  <i class="fas fa-money-check-alt"></i>
-                </button>
-                <button type="button" class="btn bg-blue btn-sm" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
+            <div class="card-header">
+              <div class="text-center">
+                <h3>BUSCADOR</h3>
+              </div>
+            </div>
+
+            <div class="card-body ">
+              <div class="form-horizontal">
+                <div class="box-body">
+                  <div class="form-group row">
+
+                    <label for="tcuenta" class="col-sm-2 control-label">Buscar Cliente:</label>
+
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" name="tbuscar" id="tbuscar" value="" placeholder="Introduzca el nombre del cliente">
+                    </div>
+
+                    <div class="col-sm-2 ">
+                      <button type="button" id="btnBuscar" name="btnBuscar" class="btn bg-green w-100">Buscar</button>
+                    </div>
+
+                  </div>
+                </div>
+
               </div>
 
-            </div><!-- /.card-header -->
 
-            <div class="card-body">
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-lg-12">
-                    <div class="table-responsive">
-                      <table name="tablaV" id="tablaV" class="table table-striped table-sm text-nowrap  table-bordered table-condensed  mx-auto" style="width:100%">
-                        <thead class="text-center bg-gradient-green">
-                          <tr>
-                            <th>Local</th>
-                            <th>Denominación</th>
-                            <th>Cliente</th>
-                            <th>Renta</th>
-                            <th>Mantenimiento</th>
-                            <th>Saldo Renta</th>
-                            <th>Saldo Mnto</th>
-                            <th>Tipo</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <?php
-                          foreach ($data as $dat) {
-                          ?>
-                            <tr>
-                              <td><?php echo $dat['concepto'] ?></td>
-                              <td><?php echo $dat['razon'] ?></td>
-                              <td><?php echo $dat['cliente'] ?></td>
-                              <td class="text-right"><?php echo "$ " . number_format($dat['renta'], 2) ?></td>
-                              <td class="text-right"><?php echo "$ " . number_format($dat['cuota'], 2) ?></td>
-                              <td class="text-right"><?php echo "$ " . number_format($dat['saldorenta'], 2) ?></td>
-                              <td class="text-right"><?php echo "$ " . number_format($dat['saldomnto'], 2) ?></td>
-                              <td><?php echo $dat['tipo'] ?></td>
-                              
-                            </tr>
-                          <?php
-                          }
-                          ?>
-                        </tbody>
-                      </table>
-                    </div>
+
+
+            </div>
+          </div>
+
+
+        </div>
+
+
+      </div>
+    </div>
+  </section>
+
+
+  <section id="resultado" name="resultado" class=''>
+    <div class="container-fluid ">
+      <div class="card">
+        <div class="card-header">
+          <div class=" text-center">
+            <h3>Resultado de Busqueda</h3>
+          </div>
+          <div class="text-center">
+            <h3 id="cliente" name="cliente"></h3>
+          </div>
+
+        </div>
+        <div class="card-body">
+          <div class="row justify-content-center">
+            <div class="col-sm-10">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="table-responsive">
+                    <table name="tablaV" id="tablaV" class="table table-sm table-striped table-bordered table-hover table-condensed text-nowrap w-auto mx-auto" style="width:100%">
+                      <thead class="text-center bg-gradient-green">
+                        <tr>
+                          <th>Folio</th>
+                          <th>Pres.</th>
+                          <th>Fecha</th>
+                          <th>Proyecto</th>
+                          <th>Concepto</th>
+                          <th>Total</th>
+                          <th>Saldo</th>
+                          <th>Saldo Mod. Met.</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
             </div>
-
-          </div><!-- /.card-body -->
+          </div>
         </div>
 
-
-
       </div>
-      <!-- Default box -->
 
+
+
+
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+
+
+      <!-- Default box -->
+      <div class="modal fade" id="modalResumen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl " role="document">
+          <div class="modal-content w-auto">
+            <div class="modal-header bg-gradient-green">
+              <h5 class="modal-title" id="exampleModalLabel">Clientes</h5>
+
+            </div>
+            <br>
+            <div class="table-hover responsive w-auto " style="padding:10px">
+              <table name="tablaResumen" id="tablaResumen" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
+                <thead class="text-center bg-gradient-green">
+                  <tr>
+                    <th>ID</th>
+                    <th>Rfc</th>
+                    <th>Cliente</th>
+                    <th>Seleccionar</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+              </table>
+            </div>
+
+
+          </div>
+
+        </div>
+        <!-- /.card-body -->
+
+        <!-- /.card-footer-->
+      </div>
       <!-- /.card -->
 
+    </div>
+  </section>
+
+
+  <section>
+    <div class="container">
+
+
+      <!-- Default box -->
+      <div class="modal fade" id="modalPagos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg " role="document">
+          <div class="modal-content w-auto">
+            <div class="modal-header bg-gradient-green">
+              <h5 class="modal-title" id="exampleModalLabel">CONSULTA DE PAGOS EN EFECTIVO</h5>
+            </div>
+            <br>
+            <div class="row justify-content-center">
+              <div class="col-sm-10">
+              <h3>MONTO MAXIMO DE COBROS EN EFECTIVO $ 680,000.00</h3>
+              </div>
+            </div>
+            <div class="table-hover responsive w-auto " style="padding:10px">
+              <table name="tablaPagos" id="tablaPagos" class="table table-sm table-striped table-bordered table-condensed display compact" style="width:100%">
+                <thead class="text-center bg-gradient-green">
+                  <tr>
+                    <th>METODO</th>
+                    <th class="currency">MONTO</th>
+                    <th>TIPO</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+              </table>
+            </div>
+
+
+          </div>
+
+        </div>
+        <!-- /.card-body -->
+
+        <!-- /.card-footer-->
+      </div>
+      <!-- /.card -->
+
+    </div>
   </section>
   <!-- /.content -->
 </div>
