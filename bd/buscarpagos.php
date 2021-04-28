@@ -13,10 +13,16 @@
 
  
  
- $consulta = "SELECT * FROM wvinfopago WHERE folio_venta='$venta' and proyecto='$proyecto'";
+ //$consulta = "SELECT * FROM wvinfopago WHERE folio_venta='$venta' and proyecto='$proyecto' and tipodepago='EFECTIVO'";
+ $consulta="SELECT proyecto,folio_venta,SUM(tmonto) AS tmonto,tipodepago FROM wvinfopago WHERE folio_venta='$venta' and proyecto='$proyecto' and tipodepago='EFECTIVO' GROUP BY proyecto,folio_venta,tipodepago";
  $resultado = $conexion->prepare($consulta);
- $resultado->execute();
- $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+ if ($resultado->execute()){
+    $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
+ }
+ else{
+     $data=0;
+ }
+ 
 
  
  

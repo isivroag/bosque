@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    const MONTOEFECTIVO=680000;
     var id, opcion;
     opcion = 4;
 
@@ -94,6 +95,13 @@ $(document).ready(function () {
 
 
     tablaPagos = $("#tablaPagos").DataTable({
+        "ordering": false,
+        info: false,
+        orderCellsTop: false,
+        
+    fixedHeader: true,
+    paging:false,
+    "searching":false,
 
      
         //Para cambiar el lenguaje a español
@@ -115,16 +123,41 @@ $(document).ready(function () {
 
         
     rowCallback: function (row, data) {
+        $($(row).find('td')['0']).addClass('text-center');
+        $($(row).find('td')['1']).addClass('text-center');
+        $($(row).find('td')['2']).addClass('text-center');
+        $($(row).find('td')['3']).addClass('text-center');
         
-        $($(row).find('td')['1']).addClass('text-right');
+        if (data[1] < 50) {
+            
+            $($(row).find('td')).addClass('bg-gradient-success')
+        }
+        else if (data[1]<75){
+            $($(row).find('td')).addClass('bg-gradient-purple')
+        }
+        else if (data[1]<100){
+            $($(row).find('td')).addClass('bg-gradient-warning')
+        }
+        else {
+            $($(row).find('td')).addClass('bg-gradient-danger')
+        }
+
+        
      
-        $($(row).find('td')['1']).addClass('currency');
+        
       
   
        
       },
 
     });
+
+    $('body').keypress(function(e){
+        if (e.keyCode == 13)
+        {
+            $('#btnBuscar').click();
+        }
+        });
   
     $(document).on("click", "#btnBuscar", function() {
         
@@ -157,8 +190,11 @@ $(document).ready(function () {
             data: { cliente: cliente },
   
             success: function(res) {
+                
               
                 for (var i = 0; i < res.length; i++) {
+                    total= '$ '+ new Intl.NumberFormat('es-MX').format( res[i].total);
+                    saldo=  '$ '+ new Intl.NumberFormat('es-MX').format( res[i].saldo);
                     tablaVis.row
                         .add([
                             res[i].folio_venta,
@@ -166,8 +202,8 @@ $(document).ready(function () {
                             res[i].fecha,
                             res[i].clave_proyecto,
                             res[i].concepto,
-                            res[i].total,
-                            res[i].saldo,
+                            total,
+                            saldo,
                             res[i].saldo_mod_met,
                             
                         ])
@@ -202,11 +238,19 @@ $(document).ready(function () {
             success: function(res) {
               
                 for (var i = 0; i < res.length; i++) {
+                    monto=res[i].tmonto;
+                    diferencia=MONTOEFECTIVO-monto;
+                    
+                    porcentaje=round((parseFloat(monto)/parseFloat(MONTOEFECTIVO)*100),2) ;
+                    pendiente=round(100-porcentaje,2);
+
+                    monto= '$ '+ new Intl.NumberFormat('es-MX').format(diferencia )
                     tablaPagos.row
                         .add([
                             res[i].tipodepago,
-                            res[i].tmonto,
-                            res[i].tipo,
+                            porcentaje,
+                            pendiente,
+                            monto
                            
                             
                         ])
@@ -247,6 +291,8 @@ $(document).ready(function () {
           },
       });
   }
-
+  function round(value, decimals) {
+    return Number(Math.round(value + "e" + decimals) + "e-" + decimals);
+}
 
 });

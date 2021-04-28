@@ -188,8 +188,9 @@ include_once "templates/navegacion.php";
                 <thead class="text-center bg-gradient-green">
                   <tr>
                     <th>METODO</th>
-                    <th class="currency">MONTO</th>
-                    <th>TIPO</th>
+                    <th class="currency">% Pagado</th>
+                    <th>% Permitido</th>
+                    <th>Monto Permitido</th>
                   </tr>
                 </thead>
                 <tbody>

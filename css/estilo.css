@@ -47,7 +47,7 @@
 
 .active {
     color: white;
-    background-color: rgb(26, 74, 179) !important;
+    background-color: #317710 !important;
 }
 
 .hide_column {
@@ -63,7 +63,7 @@
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
     color: #ffffff;
-    background-color: #0f49a0;
+    background-color: #317710;
 }
 
 .mrm {

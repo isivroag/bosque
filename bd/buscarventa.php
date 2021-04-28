@@ -12,7 +12,7 @@
 
  
  
- $consulta = "SELECT * FROM wvventa WHERE clave_cliente='$cliente' ORDER BY fecha";
+ $consulta = "SELECT * FROM wvventa WHERE clave_cliente='$cliente' and saldo >0 ORDER BY fecha";
  $resultado = $conexion->prepare($consulta);
  $resultado->execute();
  $data = $resultado->fetchAll(PDO::FETCH_ASSOC);
